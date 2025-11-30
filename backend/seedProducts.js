@@ -78,6 +78,24 @@ const products = [
     stock: 25
   },
   {
+    name: "Athletic Performance T-Shirt",
+    description: "Moisture-wicking athletic t-shirt perfect for workouts and sports activities.",
+    price: 3499,
+    imageUrl: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=500",
+    category: "Men",
+    sizes: ["S", "M", "L", "XL"],
+    stock: 38
+  },
+  {
+    name: "Cargo Shorts",
+    description: "Functional cargo shorts with multiple pockets. Perfect for outdoor adventures.",
+    price: 4299,
+    imageUrl: "https://images.unsplash.com/photo-1624378515192-85dd52317559?w=500",
+    category: "Men",
+    sizes: ["S", "M", "L", "XL"],
+    stock: 33
+  },
+  {
     name: "Floral Midi Dress",
     description: "Beautiful floral print midi dress. Flowing fabric perfect for spring and summer events.",
     price: 7499,
@@ -166,6 +184,24 @@ const products = [
     category: "Women",
     sizes: ["S", "M", "L"],
     stock: 33
+  },
+  {
+    name: "Wrap Front Blouse",
+    description: "Stylish wrap-front blouse in cream color. Flattering design that suits all body types.",
+    price: 6299,
+    imageUrl: "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=500",
+    category: "Women",
+    sizes: ["S", "M", "L", "XL"],
+    stock: 28
+  },
+  {
+    name: "Leather Ankle Boots",
+    description: "Classic black leather ankle boots with comfortable heel. Perfect for everyday wear.",
+    price: 12499,
+    imageUrl: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=500",
+    category: "Women",
+    sizes: ["S", "M", "L"],
+    stock: 19
   },
   {
     name: "Superhero Graphic Tee",
@@ -260,4 +296,3 @@ const seedProducts = async () => {
 };
 
 seedProducts();
-
