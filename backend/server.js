@@ -45,6 +45,19 @@ app.get('/api/health', (req, res) => {
   res.json({ message: 'Server is running' });
 });
 
+app.get('/api/debug/cookies', (req, res) => {
+  res.json({
+    cookies: req.cookies,
+    headers: {
+      cookie: req.headers.cookie,
+      origin: req.headers.origin,
+      'x-forwarded-proto': req.headers['x-forwarded-proto']
+    },
+    secure: req.secure,
+    nodeEnv: process.env.NODE_ENV
+  });
+});
+
 app.use(errorHandler);
 
 if (process.env.NODE_ENV !== 'production') {

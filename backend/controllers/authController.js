@@ -27,13 +27,21 @@ export const register = async (req, res) => {
     const token = generateToken(user._id);
 
     const isProduction = process.env.NODE_ENV === 'production' || req.secure || req.headers['x-forwarded-proto'] === 'https';
-    res.cookie('token', token, {
+    const cookieOptions = {
       httpOnly: true,
-      secure: isProduction,
-      sameSite: isProduction ? 'none' : 'lax',
       path: '/',
       maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
-    });
+    };
+    
+    if (isProduction) {
+      cookieOptions.secure = true;
+      cookieOptions.sameSite = 'none';
+    } else {
+      cookieOptions.secure = false;
+      cookieOptions.sameSite = 'lax';
+    }
+    
+    res.cookie('token', token, cookieOptions);
 
     res.status(201).json({
       _id: user._id,
@@ -67,13 +75,21 @@ export const login = async (req, res) => {
     const token = generateToken(user._id);
 
     const isProduction = process.env.NODE_ENV === 'production' || req.secure || req.headers['x-forwarded-proto'] === 'https';
-    res.cookie('token', token, {
+    const cookieOptions = {
       httpOnly: true,
-      secure: isProduction,
-      sameSite: isProduction ? 'none' : 'lax',
       path: '/',
       maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
-    });
+    };
+    
+    if (isProduction) {
+      cookieOptions.secure = true;
+      cookieOptions.sameSite = 'none';
+    } else {
+      cookieOptions.secure = false;
+      cookieOptions.sameSite = 'lax';
+    }
+    
+    res.cookie('token', token, cookieOptions);
 
     res.json({
       _id: user._id,
@@ -88,13 +104,21 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
   const isProduction = process.env.NODE_ENV === 'production' || req.secure || req.headers['x-forwarded-proto'] === 'https';
-  res.cookie('token', '', {
+  const cookieOptions = {
     httpOnly: true,
-    secure: isProduction,
-    sameSite: isProduction ? 'none' : 'lax',
     path: '/',
     expires: new Date(0)
-  });
+  };
+  
+  if (isProduction) {
+    cookieOptions.secure = true;
+    cookieOptions.sameSite = 'none';
+  } else {
+    cookieOptions.secure = false;
+    cookieOptions.sameSite = 'lax';
+  }
+  
+  res.cookie('token', '', cookieOptions);
   res.json({ message: 'Logged out successfully' });
 };
 
