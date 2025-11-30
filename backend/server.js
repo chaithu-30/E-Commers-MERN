@@ -50,13 +50,15 @@ app.get('/api/health', (req, res) => {
 app.get('/api/debug/cookies', (req, res) => {
   res.json({
     cookies: req.cookies,
+    hasToken: !!req.cookies.token,
     headers: {
       cookie: req.headers.cookie,
       origin: req.headers.origin,
       'x-forwarded-proto': req.headers['x-forwarded-proto']
     },
     secure: req.secure,
-    nodeEnv: process.env.NODE_ENV
+    nodeEnv: process.env.NODE_ENV,
+    isProduction: process.env.NODE_ENV === 'production'
   });
 });
 

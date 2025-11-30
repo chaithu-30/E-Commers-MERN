@@ -30,11 +30,14 @@ export const register = async (req, res) => {
     
     res.cookie('token', token, {
       httpOnly: true,
-      secure: isProduction ? true : false,
+      secure: isProduction,
       sameSite: isProduction ? 'none' : 'lax',
       path: '/',
-      maxAge: 30 * 24 * 60 * 60 * 1000
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+      domain: undefined
     });
+    
+    console.log('Cookie set - Production:', isProduction, 'Secure:', isProduction, 'SameSite:', isProduction ? 'none' : 'lax');
 
     res.status(201).json({
       _id: user._id,
@@ -71,11 +74,14 @@ export const login = async (req, res) => {
     
     res.cookie('token', token, {
       httpOnly: true,
-      secure: isProduction ? true : false,
+      secure: isProduction,
       sameSite: isProduction ? 'none' : 'lax',
       path: '/',
-      maxAge: 30 * 24 * 60 * 60 * 1000
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+      domain: undefined
     });
+    
+    console.log('Cookie set - Production:', isProduction, 'Secure:', isProduction, 'SameSite:', isProduction ? 'none' : 'lax');
 
     res.json({
       _id: user._id,
@@ -93,10 +99,11 @@ export const logout = async (req, res) => {
   
   res.cookie('token', '', {
     httpOnly: true,
-    secure: isProduction ? true : false,
+    secure: isProduction,
     sameSite: isProduction ? 'none' : 'lax',
     path: '/',
-    expires: new Date(0)
+    expires: new Date(0),
+    domain: undefined
   });
   res.json({ message: 'Logged out successfully' });
 };
