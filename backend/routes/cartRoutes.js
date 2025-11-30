@@ -1,0 +1,22 @@
+import express from 'express';
+import {
+  getCart,
+  addToCart,
+  updateCartItem,
+  removeFromCart,
+  syncCart
+} from '../controllers/cartController.js';
+import { protect } from '../middleware/authMiddleware.js';
+
+const router = express.Router();
+
+router.use(protect); // All cart routes require authentication
+
+router.get('/', getCart);
+router.post('/add', addToCart);
+router.put('/update', updateCartItem);
+router.delete('/remove', removeFromCart);
+router.post('/sync', syncCart);
+
+export default router;
+

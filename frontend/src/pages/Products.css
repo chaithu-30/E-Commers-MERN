@@ -1,0 +1,263 @@
+.products-page {
+  min-height: calc(100vh - 60px);
+  padding: 1.5rem;
+  background-color: #eaeded;
+}
+
+.container {
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.products-page h1 {
+  margin: 0;
+  color: #0f1111;
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.products-count {
+  color: #565959;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.search-bar-container {
+  margin-bottom: 1.5rem;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 2px solid #ff9900;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  max-width: 600px;
+  transition: all 0.2s;
+}
+
+.search-bar:focus-within {
+  box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.1);
+}
+
+.search-icon {
+  color: #565959;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #0f1111;
+  background: transparent;
+}
+
+.search-input::placeholder {
+  color: #a7acb2;
+}
+
+.clear-search {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #565959;
+  margin-left: 0.5rem;
+  border-radius: 3px;
+  transition: all 0.15s;
+}
+
+.clear-search:hover {
+  background-color: #f0f2f2;
+  color: #0f1111;
+}
+
+.products-layout {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 1.5rem;
+}
+
+.products-content {
+  min-height: 400px;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.loading,
+.no-products {
+  text-align: center;
+  padding: 4rem 2rem;
+  font-size: 1.125rem;
+  color: #565959;
+  background: white;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.pagination button {
+  padding: 0.5rem 1rem;
+  background-color: #ffffff;
+  color: #0f1111;
+  border: 1px solid #d5d9d9;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #f7fafa;
+  border-color: #ff9900;
+}
+
+.pagination button:disabled {
+  background-color: #f0f2f2;
+  color: #c9cbcc;
+  cursor: not-allowed;
+  border-color: #d5d9d9;
+}
+
+.pagination span {
+  font-weight: 500;
+  color: #0f1111;
+  font-size: 0.875rem;
+  padding: 0 0.5rem;
+}
+
+@media (max-width: 968px) {
+  .products-page {
+    padding: 1rem;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-bar-container {
+    width: 100%;
+  }
+
+  .search-bar {
+    max-width: 100%;
+  }
+
+  .products-layout {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .filters-sidebar {
+    order: 2;
+  }
+
+  .products-content {
+    order: 1;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .products-page {
+    padding: 0.75rem;
+  }
+
+  .page-header {
+    margin-bottom: 1rem;
+  }
+
+  .products-page h1 {
+    font-size: 24px;
+  }
+
+  .products-count {
+    font-size: 13px;
+  }
+
+  .search-bar {
+    padding: 0.4rem 0.75rem;
+  }
+
+  .search-input {
+    font-size: 14px;
+  }
+
+  .search-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 0.5rem;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .pagination {
+    padding: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .pagination button {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .pagination span {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .products-page h1 {
+    font-size: 20px;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+}
