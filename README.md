@@ -173,12 +173,12 @@ This might take a minute, but once it's done, we need to create a
 configuration file. Create a new file called `.env` in the backend folder and 
 add these settings:
 
-This might take a minute, but once it's done, we need to create a 
-configuration file. Create a new file called `.env` in the backend folder and 
+ Create a new file called `.env` in the backend folder and 
 add these settings:
-This might take a minute, but once it's done, we need to create a configuration file. 
 
 **Recommended:** 
+```
+.env
 PORT=5000
 MONGO_URI=mongodb+srv://bunny:Bunny30@cluster0.sivzqdl.mongodb.net/ecommerce?retryWrites=true&w=majority
 JWT_SECRET=vnbvurybfviuybrv
@@ -189,7 +189,7 @@ EMAIL_SERVICE=gmail
 EMAIL_FROM=srichaithanyakarri30@gmail.com
 EMAIL_FROM_NAME=StyleVault
 FRONTEND_URL=http://localhost:5173
-
+```
 **Or create it manually:** Create a new file called `.env` in the backend folder and use this exact format (all 10 lines):
 
 ```env
