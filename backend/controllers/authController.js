@@ -26,10 +26,12 @@ export const register = async (req, res) => {
 
     const token = generateToken(user._id);
 
+    const isProduction = process.env.NODE_ENV === 'production' || req.secure || req.headers['x-forwarded-proto'] === 'https';
     res.cookie('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'lax',
+      path: '/',
       maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
     });
 
@@ -64,10 +66,12 @@ export const login = async (req, res) => {
 
     const token = generateToken(user._id);
 
+    const isProduction = process.env.NODE_ENV === 'production' || req.secure || req.headers['x-forwarded-proto'] === 'https';
     res.cookie('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'lax',
+      path: '/',
       maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
     });
 
@@ -83,10 +87,12 @@ export const login = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
+  const isProduction = process.env.NODE_ENV === 'production' || req.secure || req.headers['x-forwarded-proto'] === 'https';
   res.cookie('token', '', {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    secure: isProduction,
+    sameSite: isProduction ? 'none' : 'lax',
+    path: '/',
     expires: new Date(0)
   });
   res.json({ message: 'Logged out successfully' });
