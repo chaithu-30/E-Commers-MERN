@@ -144,6 +144,18 @@ You'll need a few things installed before we get started:
 - **MongoDB** database (MongoDB Atlas is free and works great, or you can run it locally)
 - An **email account** for sending order confirmations (Gmail is the easiest option)
 
+
+
+******
+**IMPORTANT:-**
+---
+**Before starting setup i would like to request you to enable third party cookies in your 
+  browser as per project requirements**
+---
+*******
+
+
+
 ### Step 1: Set Up the Backend
 
 Let's start with the backend. Open your terminal and navigate into the backend folder:
