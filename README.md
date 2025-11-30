@@ -266,22 +266,109 @@ Authentication endpoints handle user registration, login, logout, and profile ac
 
 All cart and order endpoints require authentication, meaning users must be logged in to access them.
 
-## Running in Production
+## Deploying to Vercel
 
-When you're ready to deploy:
+Vercel makes it easy to deploy both the frontend and backend. You'll deploy them as two separate projects.
 
-For the backend, set your production environment variables and use a process manager like PM2 to keep the server running.
+### Step 1: Prepare Your Code
 
-For the frontend, build the production version:
+Make sure all your code is committed and pushed to a GitHub repository. Vercel connects directly to GitHub for deployments.
+
+### Step 2: Deploy the Backend
+
+1. Go to vercel.com and sign up or log in with your GitHub account
+
+2. Click "Add New..." and select "Project"
+
+3. Import your GitHub repository (the one containing this E-Commerce project)
+
+4. Configure the backend project:
+   - Framework Preset: Other
+   - Root Directory: `backend`
+   - Build Command: Leave empty
+   - Output Directory: Leave empty
+   - Install Command: `npm install`
+
+5. Add Environment Variables:
+   Click "Environment Variables" and add these:
+   - `PORT` (Vercel sets this automatically, but you can add `5000` if needed)
+   - `MONGO_URI` - Your MongoDB connection string (from MongoDB Atlas)
+   - `JWT_SECRET` - A long random secret key for JWT tokens
+   - `FRONTEND_URL` - Leave this for now, we'll add it after deploying frontend
+   - `EMAIL_USER` - Your email address (Gmail or Outlook)
+   - `EMAIL_PASS` - Your email password or App Password for Gmail
+   - `EMAIL_SERVICE` - `gmail` or `outlook`
+   - `EMAIL_FROM` - Same as EMAIL_USER
+   - `EMAIL_FROM_NAME` - `StyleVault`
+   - `NODE_ENV` - `production`
+
+6. Click "Deploy" and wait for the deployment to complete
+
+7. Once deployed, copy your backend URL (it will look like: `https://your-project-name.vercel.app`). You'll need this for the frontend.
+
+### Step 3: Deploy the Frontend
+
+1. In Vercel dashboard, click "Add New..." again and select "Project"
+
+2. Import the same GitHub repository
+
+3. Configure the frontend project:
+   - Framework Preset: Vite
+   - Root Directory: `frontend`
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+   - Install Command: `npm install`
+
+4. Add Environment Variable:
+   - Key: `VITE_API_URL`
+   - Value: `https://your-backend-url.vercel.app/api` (use the backend URL from step 7 above, and add `/api` at the end)
+
+5. Click "Deploy"
+
+6. Once deployed, copy your frontend URL (it will look like: `https://your-frontend-project.vercel.app`)
+
+### Step 4: Update Backend CORS Settings
+
+Now that both are deployed, update the backend to allow requests from your frontend:
+
+1. Go to your backend project in Vercel dashboard
+
+2. Go to Settings, then Environment Variables
+
+3. Find `FRONTEND_URL` and update its value to your frontend Vercel URL (from step 6 above)
+
+4. Go to Deployments tab, find the latest deployment, click the three dots menu, and select "Redeploy"
+
+### Step 5: Seed the Production Database
+
+After deployment, add products to your production database:
+
+1. On your local machine, open the backend folder
+
+2. Create a temporary `.env` file with only your production MongoDB URI:
 
 ```
-cd frontend
-npm run build
+MONGO_URI=your_production_mongodb_connection_string
 ```
 
-This creates optimized files in the dist folder. Serve these static files using a web server like Nginx or configure your Express server to serve them.
+3. Run the seed script:
 
-Make sure to use a production-ready email service like SendGrid, Mailgun, or Amazon SES for sending emails to customers. Update your email configuration accordingly.
+```
+npm run seed
+```
+
+4. Delete the temporary `.env` file after seeding completes
+
+Your application is now live on Vercel. Visit your frontend URL to see it in action.
+
+### Important Notes
+
+- Both projects must be deployed from the same GitHub repository
+- The backend vercel.json file is already configured
+- Environment variables are sensitive - never commit them to GitHub
+- Vercel automatically provides HTTPS for both frontend and backend
+- The frontend will automatically use the backend API URL from the VITE_API_URL environment variable
+- Make sure your MongoDB Atlas database allows connections from anywhere (IP whitelist set to 0.0.0.0/0)
 
 ## Troubleshooting
 
@@ -304,7 +391,3 @@ If the frontend won't connect to the backend:
 ## Support and Questions
 
 If you run into issues or have questions about the code, feel free to check the code comments or reach out for help. The codebase is structured to be readable and maintainable.
-
-## License
-
-This project is available for use under the MIT License.
