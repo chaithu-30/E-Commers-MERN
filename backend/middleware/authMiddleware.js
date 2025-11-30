@@ -6,9 +6,18 @@ export const protect = async (req, res, next) => {
     const token = req.cookies.token;
 
     if (!token) {
-      console.log('No token found. Cookies:', req.cookies);
-      console.log('Cookie header:', req.headers.cookie);
-      return res.status(401).json({ message: 'Not authorized, no token' });
+      console.log('=== AUTH FAILED ===');
+      console.log('Cookies received:', req.cookies);
+      console.log('Cookie header string:', req.headers.cookie || 'NO COOKIE HEADER');
+      console.log('Request origin:', req.headers.origin);
+      console.log('Request referer:', req.headers.referer);
+      return res.status(401).json({ 
+        message: 'Not authorized, no token',
+        debug: {
+          cookiesReceived: Object.keys(req.cookies),
+          hasCookieHeader: !!req.headers.cookie
+        }
+      });
     }
 
     try {

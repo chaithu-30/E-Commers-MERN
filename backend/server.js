@@ -51,14 +51,17 @@ app.get('/api/debug/cookies', (req, res) => {
   res.json({
     cookies: req.cookies,
     hasToken: !!req.cookies.token,
+    tokenValue: req.cookies.token ? req.cookies.token.substring(0, 20) + '...' : null,
     headers: {
       cookie: req.headers.cookie,
       origin: req.headers.origin,
-      'x-forwarded-proto': req.headers['x-forwarded-proto']
+      'x-forwarded-proto': req.headers['x-forwarded-proto'],
+      referer: req.headers.referer
     },
     secure: req.secure,
     nodeEnv: process.env.NODE_ENV,
-    isProduction: process.env.NODE_ENV === 'production'
+    isProduction: process.env.NODE_ENV === 'production',
+    message: req.cookies.token ? 'Cookie received successfully!' : 'No cookie received - check browser settings'
   });
 });
 

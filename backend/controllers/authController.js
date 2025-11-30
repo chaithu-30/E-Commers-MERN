@@ -28,16 +28,21 @@ export const register = async (req, res) => {
 
     const isProduction = process.env.NODE_ENV === 'production';
     
-    res.cookie('token', token, {
+    const cookieSettings = {
       httpOnly: true,
       secure: isProduction,
       sameSite: isProduction ? 'none' : 'lax',
       path: '/',
-      maxAge: 30 * 24 * 60 * 60 * 1000,
-      domain: undefined
-    });
+      maxAge: 30 * 24 * 60 * 60 * 1000
+    };
     
-    console.log('Cookie set - Production:', isProduction, 'Secure:', isProduction, 'SameSite:', isProduction ? 'none' : 'lax');
+    res.cookie('token', token, cookieSettings);
+    
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    
+    const setCookieHeader = res.getHeader('Set-Cookie');
+    console.log('Cookie being set:', setCookieHeader);
+    console.log('Cookie settings:', cookieSettings);
 
     res.status(201).json({
       _id: user._id,
@@ -72,16 +77,21 @@ export const login = async (req, res) => {
 
     const isProduction = process.env.NODE_ENV === 'production';
     
-    res.cookie('token', token, {
+    const cookieSettings = {
       httpOnly: true,
       secure: isProduction,
       sameSite: isProduction ? 'none' : 'lax',
       path: '/',
-      maxAge: 30 * 24 * 60 * 60 * 1000,
-      domain: undefined
-    });
+      maxAge: 30 * 24 * 60 * 60 * 1000
+    };
     
-    console.log('Cookie set - Production:', isProduction, 'Secure:', isProduction, 'SameSite:', isProduction ? 'none' : 'lax');
+    res.cookie('token', token, cookieSettings);
+    
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    
+    const setCookieHeader = res.getHeader('Set-Cookie');
+    console.log('Cookie being set:', setCookieHeader);
+    console.log('Cookie settings:', cookieSettings);
 
     res.json({
       _id: user._id,
