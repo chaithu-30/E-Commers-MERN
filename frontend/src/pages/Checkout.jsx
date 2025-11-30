@@ -46,7 +46,10 @@ const Checkout = () => {
     return (
       <div className="checkout-page">
         <div className="container">
-          <div style={{ textAlign: 'center', padding: '2rem' }}>Loading...</div>
+          <div className="spinner-container">
+            <div className="spinner large"></div>
+            <div className="spinner-text">Loading checkout...</div>
+          </div>
         </div>
       </div>
     );
@@ -101,7 +104,12 @@ const Checkout = () => {
               disabled={loading || cartItems.length === 0}
               className="place-order-btn"
             >
-              {loading ? 'Placing Order...' : 'Place Order'}
+              {loading ? (
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <span className="spinner small" style={{ margin: 0, borderWidth: '2px', width: '16px', height: '16px' }}></span>
+                  Placing Order...
+                </span>
+              ) : 'Place Order'}
             </button>
           </div>
         </div>

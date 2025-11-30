@@ -13,6 +13,7 @@ const ProductDetail = () => {
   const [selectedSize, setSelectedSize] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [message, setMessage] = useState('');
+  const [addingToCart, setAddingToCart] = useState(false);
 
   useEffect(() => {
     fetchProduct();
@@ -38,13 +39,30 @@ const ProductDetail = () => {
       return;
     }
 
-    await addToCart(product, selectedSize, quantity);
-    setMessage('Item added to cart!');
-    setTimeout(() => setMessage(''), 3000);
+    setAddingToCart(true);
+    try {
+      await addToCart(product, selectedSize, quantity);
+      setMessage('Item added to cart!');
+      setTimeout(() => setMessage(''), 3000);
+    } catch (error) {
+      setMessage('Failed to add item to cart');
+      setTimeout(() => setMessage(''), 3000);
+    } finally {
+      setAddingToCart(false);
+    }
   };
 
   if (loading) {
-    return <div className="container">Loading...</div>;
+    return (
+      <div className="product-detail-page">
+        <div className="container">
+          <div className="spinner-container">
+            <div className="spinner large"></div>
+            <div className="spinner-text">Loading product details...</div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (!product) {
@@ -102,8 +120,17 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            <button onClick={handleAddToCart} className="add-to-cart-btn">
-              Add to Cart
+            <button 
+              onClick={handleAddToCart} 
+              className="add-to-cart-btn"
+              disabled={addingToCart}
+            >
+              {addingToCart ? (
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <span className="spinner small" style={{ margin: 0, borderWidth: '2px', width: '16px', height: '16px' }}></span>
+                  Adding...
+                </span>
+              ) : 'Add to Cart'}
             </button>
 
             {message && <p className="message">{message}</p>}

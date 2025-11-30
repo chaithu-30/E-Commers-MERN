@@ -67,6 +67,28 @@
 .submit-btn:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+  position: relative;
+  opacity: 0.8;
+}
+
+.submit-btn:disabled::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  margin: auto;
+  border: 2px solid transparent;
+  border-top-color: #0f1111;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@keyframes spin {
+  0% { transform: translateY(-50%) rotate(0deg); }
+  100% { transform: translateY(-50%) rotate(360deg); }
 }
 
 .error-message {

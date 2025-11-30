@@ -21,7 +21,16 @@ const Cart = () => {
   };
 
   if (loading) {
-    return <div className="container">Loading cart...</div>;
+    return (
+      <div className="cart-page">
+        <div className="container">
+          <div className="spinner-container">
+            <div className="spinner large"></div>
+            <div className="spinner-text">Loading your cart...</div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (cartItems.length === 0) {

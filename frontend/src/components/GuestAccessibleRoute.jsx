@@ -6,7 +6,14 @@ const GuestAccessibleRoute = ({ children }) => {
   const location = useLocation();
 
   if (loading) {
-    return <div className="container" style={{ padding: '2rem', textAlign: 'center' }}>Loading...</div>;
+    return (
+      <div className="container">
+        <div className="spinner-container">
+          <div className="spinner"></div>
+          <div className="spinner-text">Loading...</div>
+        </div>
+      </div>
+    );
   }
 
   const isGuest = sessionStorage.getItem('guest_access') === 'true';

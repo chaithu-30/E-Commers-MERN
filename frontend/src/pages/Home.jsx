@@ -14,7 +14,18 @@ const Home = () => {
     }
   }, [user, loading, navigate]);
 
-  if (loading || user) {
+  if (loading) {
+    return (
+      <div className="homepage">
+        <div className="spinner-container" style={{ minHeight: '100vh', justifyContent: 'center' }}>
+          <div className="spinner large"></div>
+          <div className="spinner-text">Loading...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (user) {
     return null;
   }
 

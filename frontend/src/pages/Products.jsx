@@ -107,7 +107,10 @@ const Products = () => {
 
           <main className="products-content">
             {loading ? (
-              <div className="loading">Loading products...</div>
+              <div className="spinner-container" style={{ minHeight: '400px' }}>
+                <div className="spinner large"></div>
+                <div className="spinner-text">Loading products...</div>
+              </div>
             ) : products.length === 0 ? (
               <div className="no-products">
                 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" style={{ marginBottom: '1rem', opacity: 0.5 }}>

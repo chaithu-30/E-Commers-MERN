@@ -194,9 +194,14 @@
   box-shadow: 0 2px 5px 0 rgba(213, 217, 217, 0.5);
 }
 
-.add-to-cart-btn:hover {
+.add-to-cart-btn:hover:not(:disabled) {
   background-color: #f08804;
   box-shadow: 0 4px 12px rgba(255, 153, 0, 0.3);
+}
+
+.add-to-cart-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .message {
